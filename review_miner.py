@@ -5,12 +5,13 @@ from scripts.get_wpid import ProductGenome
 import urllib2
 import pandas as pd
 import json
+from nltk.corpus import stopwords
 
 nltk.download('http://nltk.org/data.html')
 pos = 0
 neg = 0
 nouns_and_noun_phrases = []
-
+# nltk.download()
 
 servers = {"PROD": "kaos-cass00.sv.walmartlabs.com"}
 
@@ -25,11 +26,14 @@ def get_features(wpid):
     spell_json=json.load(response)
     features= spell_json['docs'][0]['product_attributes'].keys()
 # features=["size","wetness indicator","absorb","quality","deliver","ship","offer","softness","weight","price"]
+    feature_list=[]
     for feature in features:
-        feature_list=feature.split('_')
-    return feature_list
+        feature_list.extend(feature.split('_'))
+    return list(set(feature_list))
 
 def modify_features(feature_list):
+    stop = stopwords.words('english')
+    feature_list=[f for f in feature_list if f not in stop]
     return feature_list
 
 def feature_senti(reviewfile,feature_list,outputfile=None):
@@ -66,10 +70,21 @@ def feature_senti(reviewfile,feature_list,outputfile=None):
                 nouns_and_noun_phrases.append(' '.join(sentence_features["noun_phrases"] + sentence_features["nouns"]))
     cv = CountVectorizer(ngram_range=(1,2), min_df=0.01)
     cv.fit_transform(nouns_and_noun_phrases)
+    df=pd.DataFrame.from_dict(feature_sent_dict, orient='index').reset_index()
+    df.cols=['feature','neg','pos']
+    df.sort(['pos','neg'],ascending=[False,False],inplace=True)
+    df.to_csv(outputfile)
     return feature_sent_dict
 
-def get_feature_senti(productid,reviewfile):
+def get_feature_senti(productid,reviewfile,outputfile=None):
     wpid=get_wmid(productid)
+    wpid=str(wpid.pop())
     feature_list=get_features(wpid)
     feature_list=modify_features(feature_list)
-    return feature_senti(reviewfile,feature_list)
+    return feature_senti(reviewfile,feature_list,outputfile=outputfile)
+
+if __name__=='__main__':
+    productid='4408441'
+    reviewfile='./reviews/reviews_diapers_27280906.txt'
+    outreviewfile='./reviews/reviews_diapers_27280906_senti.txt'
+    print get_feature_senti(productid,reviewfile,outputfile=outreviewfile)

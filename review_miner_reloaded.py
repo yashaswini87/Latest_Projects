@@ -1,5 +1,8 @@
 from textblob import TextBlob
-from sklearn.feature_extraction.text import CountVectorizer
+import json
+
+product_id = '12345678'
+review_filename = 'reviews/reviews_ipad.txt'
 
 features = [['screen', 'display'], ['battery'], ['camera']]
 sentiment = []
@@ -14,7 +17,7 @@ for feature in features:
     feat_info['neg'] = 0
     feature_info.append(feat_info)
 
-with open("reviews/reviews_ipad.txt") as review_file:
+with open(review_filename) as review_file:
     for line in review_file:
         review = line.strip()
         review_blob = TextBlob(review)
@@ -32,6 +35,17 @@ with open("reviews/reviews_ipad.txt") as review_file:
                     if pol < 0:
                         feat_info["neg"] += 1
 
-print feature_info
+review_summary = {"product_id": product_id, "colorByPoint": True}
+data = []
+for feat_info in feature_info:
+    data_point = {}
+    data_point["name"] = feat_info["name"].title()
+    data_point['y'] = feat_info["pos"] + feat_info["neg"]
+    data.append(data_point)
+
+review_summary["data"] = data
+
+with open("review_data.txt", 'w') as review_data_file:
+    review_data_file.write(json.dumps(review_summary) + '\n')
 
 

@@ -13,6 +13,11 @@ with open('../reviews/reviews_bed_4408441.txt', 'w') as review_file:
         reviews = requests.get(page_url).json().get("payload").get("customerReviews")
         for review in reviews:
             review_text = review.get("reviewText").strip()
+            #append title
+            review_title = review.get("reviewTitle")
+            if review_title is not None:
+                print review_title
+                review_text = review_text + review_title.strip()
             if len(review_text) > 0:
                 review_corpus.append(review_text)
                 try:

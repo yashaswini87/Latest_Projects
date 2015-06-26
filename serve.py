@@ -1,39 +1,30 @@
 from flask import Flask
 import json
 from flask import request
+from flask import Response
 
 app = Flask(__name__)
 
+review_summaries = {}
+def load_summaries():
+    with open('review_data.txt') as summary_file:
+        for line in summary_file:
+            rev_summary = json.loads(line.strip())
+            review_summaries[rev_summary["product_id"]] = rev_summary
+
+
 @app.route("/")
-def get_stats():
+def get_review_data():
     product_id = request.args.get('productId')
-    review_data = {
-            "Product Id": product_id,
-            "colorByPoint": True,
-            "data": [{
-                "name": "Speed",
-                "y": 56.33
-            }, {
-                "name": "Screen",
-                "y": 24.035,
-                "sliced": True,
-                "selected": True
-            }, {
-                "name": "Resolution",
-                "y": 10.38
-            }, {
-                "name": "Shipping",
-                "y": 4.77
-            }, {
-                "name": "Assembly",
-                "y": 0.91
-            }, {
-                "name": "Battery",
-                "y": 0.2
-            }]
-        }
-    return json.dumps(review_data)
+    if product_id in review_summaries:
+        data = review_summaries[product_id]
+    else:
+        data = {}
+    resp = Response(json.dumps(data))
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 if __name__ == "__main__":
+    load_summaries()
     app.run(host='0.0.0.0', port=8888)

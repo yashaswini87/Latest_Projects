@@ -6,7 +6,7 @@
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script>
 $(function () {
-    $('#container').highcharts({
+    $('#container1').highcharts({
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -36,32 +36,95 @@ $(function () {
             name: "Browser",
             colorByPoint: true,
             data: [{
-                name: "MS IE",
+                name: "Speed",
                 y: 56.33
             }, {
-                name: "Chrome",
+                name: "weight",
                 y: 24.030000000000005,
                 sliced: true,
                 selected: true
             }, {
-                name: "Firefox",
+                name: "Resolution",
                 y: 10.38
             }, {
-                name: "Safari",
+                name: "Shipping",
                 y: 4.77
             }, {
-                name: "Opera",
+                name: "Assembly",
                 y: 0.9100000000000001
             }, {
-                name: "Proprietary or Undetectable",
+                name: "Battery",
                 y: 0.2
             }]
+        }]
+    });
+});
+
+$(function () {
+    $('#container2').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'What people say'
+        },
+        subtitle: {
+            text: 'Source: <a href="http://www.walmart.com/ip/4408441">Product Link</a>'
+        },
+        xAxis: {
+            categories: ['Screen', 'Resolution', 'Shipping'],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Feature Sentiment',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' millions'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Positive',
+            data: [102, 77, 35]
+        },
+        {
+            name: 'Negative',
+            data: [32, 12, 9]
         }]
     });
 });
 </script>
 </head>
 <body>
-<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+<div id="container1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+<div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 </body>
 </html>

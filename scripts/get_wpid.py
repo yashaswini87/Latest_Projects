@@ -12,7 +12,6 @@ class ProductGenome(object):
         self.session.row_factory = dict_factory
         self.session.default_timeout = timeout
 
-
     def get_variant_wpids(self, item_id):
         row_key = 'DCITEM' + '-' + item_id
         prepared_stmt = self.session.prepare ('SELECT * FROM "SRC_OFFER" WHERE (key = ?)')
@@ -21,11 +20,8 @@ class ProductGenome(object):
         wpids = {row.get('WUPCID') for row in rows}
         return wpids
 
-
-
     def close(self):
         self.session.shutdown()
-
 
 if __name__ == '__main__':
     pg = ProductGenome(server_url=servers.get("PROD"))

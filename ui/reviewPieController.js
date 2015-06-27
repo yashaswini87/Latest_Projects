@@ -113,8 +113,7 @@ countPieGui.controller('mainController',function($scope, $http){
 	
 	$scope.productSearch = function(){
 		
-	alert("hi "+$scope.productIdStr);
-	remoteCall($scope.productIdStr);	
+	remoteCall($scope.productIdStr);
 	};	
  
 	var remoteCall = function(productId){

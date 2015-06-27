@@ -33,9 +33,6 @@ countPieGui.controller('mainController',function($scope, $http){
                 overflow: 'justify'
             }
         },
-        tooltip: {
-            valueSuffix: ' millions'
-        },
         plotOptions: {
             bar: {
                 dataLabels: {

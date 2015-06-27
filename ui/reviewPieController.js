@@ -10,6 +10,7 @@ countPieGui.controller('mainController',function($scope, $http){
         chart: {
             type: 'bar'
         },
+        colors: ['#3498db', '#e74c3c'],
         title: {
             text: 'What people say'
         },
@@ -31,9 +32,6 @@ countPieGui.controller('mainController',function($scope, $http){
             labels: {
                 overflow: 'justify'
             }
-        },
-        tooltip: {
-            valueSuffix: ' millions'
         },
         plotOptions: {
             bar: {
@@ -113,8 +111,7 @@ countPieGui.controller('mainController',function($scope, $http){
 	
 	$scope.productSearch = function(){
 		
-	alert("hi "+$scope.productIdStr);
-	remoteCall($scope.productIdStr);	
+	remoteCall($scope.productIdStr);
 	};	
  
 	var remoteCall = function(productId){

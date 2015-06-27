@@ -1,8 +1,12 @@
 from textblob import TextBlob
 import json
+from wordcloud import generate_tag_cloud
+from random import randint
 
-product_id = '29010048'
+
+product_id = '27608624'
 review_filename = 'reviews/reviews_{}.txt'.format(product_id)
+informative_sentences = []
 
 features = [['screen', 'display'], ['battery'], ['camera'], ["shipping"], ["price"]]
 features = [['screen', 'display'], ['battery'], ['camera'], ["video"], ["reception"], ["shipping"], ["price"]]
@@ -33,8 +37,13 @@ with open(review_filename) as review_file:
 
                     if pol > 0:
                         feat_info["pos"] += 1
+                        if pol == 1.0 and len(sentence) < 40:
+                            informative_sentences.append((str(sentence), pol))
+                            print pol
                     if pol < 0:
                         feat_info["neg"] += 1
+                        if pol == -1.0 and len(sentence) < 40:
+                            informative_sentences.append((str(sentence), -1*pol))
 
 review_summary = {"product_id": product_id}
 data = []
@@ -56,3 +65,14 @@ review_summary["col_cats"] = categories
 
 with open("review_data.txt", 'a') as review_data_file:
     review_data_file.write(json.dumps(review_summary) + '\n')
+
+
+tags = []
+#3498db
+
+for sentence in informative_sentences:
+    r, g, b = randint(0, 255), randint(0, 255), randint(0, 255)
+    size = int(100 * sentence[1])
+    tags.append({'color': (r, g, b), 'tag': sentence[0], 'size': size})
+
+generate_tag_cloud(tags)

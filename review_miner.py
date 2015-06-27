@@ -26,7 +26,7 @@ def get_features(wpid):
     spell_json=json.load(response)
     features= spell_json['docs'][0]['product_attributes'].keys()
 # features=["size","wetness indicator","absorb","quality","deliver","ship","offer","softness","weight","price"]
-    feature_list=[]
+    feature_list=["shipping", "price"]
     for feature in features:
         feature_list.extend(feature.split('_'))
     return list(set(feature_list))
@@ -84,7 +84,7 @@ def get_feature_senti(productid,reviewfile,outputfile=None):
     return feature_senti(reviewfile,feature_list,outputfile=outputfile)
 
 if __name__=='__main__':
-    productid='4408441'
-    reviewfile='./reviews/reviews_diapers_27280906.txt'
-    outreviewfile='./reviews/reviews_diapers_27280906_senti.txt'
+    productid='35121100'
+    reviewfile='./reviews/reviews_35121100.txt'
+    outreviewfile='./reviews/reviews_35121100_senti.txt'
     print get_feature_senti(productid,reviewfile,outputfile=outreviewfile)

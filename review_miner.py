@@ -29,7 +29,7 @@ def get_features(wpid):
     spell_json=json.load(response)
     features= spell_json['docs'][0]['product_attributes'].keys()
 # features=["size","wetness indicator","absorb","quality","deliver","ship","offer","softness","weight","price"]
-    feature_list=["ship", "price","size","quality","deliver","store"]
+    feature_list=["ship", "price","size","quality","deliver","store","warrant","assemble"]
     for feature in features:
         feature_list.extend(feature.split('_'))
     return list(set(feature_list))
@@ -99,12 +99,13 @@ def get_feature_senti(productid, get_reviews=False):
     return feature_senti(review_file,feature_list,outputfile=outputfile)
 
 if __name__=='__main__':
-    product_id = '35121100'
+    product_id = '25059351'
     selected_features = {}
     feature_name_mapping = {"rate" : "refresh rate", "ship" : "shipping", "deliver": "shipping","remote":"remote control","control":"remote control"}
-    selected_features['35121100'] = ['height', 'weight', 'length', 'color', 'fabric', 'instructions', 'brand', 'assembled', 'price', 'ship']
+    selected_features['35121100'] = ['height', 'weight', 'length', 'color', 'fabric', 'instructions', 'brand', 'assembled', 'price','ship','deliver']
     selected_features['34390987'] = ['height', 'weight', 'brand', 'assembled', 'price', 'ship']
     selected_features['25059351']=['price','quality','screen','brand','remote','control','rate','weight','resolution','warranty','ship','deliver']
+    selected_features['4408441']=['quality','finish','price','ship','wood','deliver','store','size','material','color']
     feature_info = get_feature_senti(product_id)
     review_summary = {"product_id": product_id}
     data = []

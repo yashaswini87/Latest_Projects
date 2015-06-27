@@ -1,10 +1,11 @@
 from textblob import TextBlob
 import json
 
-product_id = '12345678'
-review_filename = 'reviews/reviews_ipad.txt'
+product_id = '29010048'
+review_filename = 'reviews/reviews_{}.txt'.format(product_id)
 
-features = [['screen', 'display'], ['battery'], ['camera']]
+features = [['screen', 'display'], ['battery'], ['camera'], ["shipping"], ["price"]]
+features = [['screen', 'display'], ['battery'], ['camera'], ["video"], ["reception"], ["shipping"], ["price"]]
 sentiment = []
 
 feature_info = []
@@ -35,17 +36,23 @@ with open(review_filename) as review_file:
                     if pol < 0:
                         feat_info["neg"] += 1
 
-review_summary = {"product_id": product_id, "colorByPoint": True}
+review_summary = {"product_id": product_id}
 data = []
+series = [{"name": "Positive", "data": []}, {"name": "Negative", "data": []}]
+categories = []
+
 for feat_info in feature_info:
     data_point = {}
     data_point["name"] = feat_info["name"].title()
     data_point['y'] = feat_info["pos"] + feat_info["neg"]
     data.append(data_point)
+    categories.append(feat_info["name"].title())
+    series[0]["data"].append(feat_info["pos"])
+    series[1]["data"].append(feat_info["neg"])
 
 review_summary["data"] = data
+review_summary["col_data"] = series
+review_summary["col_cats"] = categories
 
-with open("review_data.txt", 'w') as review_data_file:
+with open("review_data.txt", 'a') as review_data_file:
     review_data_file.write(json.dumps(review_summary) + '\n')
-
-

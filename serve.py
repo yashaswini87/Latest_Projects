@@ -22,7 +22,14 @@ def get_review_data():
         data = {}
     resp = Response(json.dumps(data))
     resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Access-Control-Allow-Methods'] = "GET, POST, PUT, OPTIONS"
+    resp.headers['Access-Control-Allow-Headers'] = "Content-Type"
     return resp
+
+@app.route("/dashboard")
+def get_dashboard():
+    with open('ui/dashboard-dynamic.html') as dashboard:
+        return dashboard.read()
 
 
 if __name__ == "__main__":

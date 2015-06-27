@@ -2,20 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c3e6007-e7ed-4b6a-bfe9-d7fcfe479d94" name="Default" comment="tablet/laptop features">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/hackday.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/reviews/reviews_mattress_12542630.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/ui/dashboard-dynamic.html" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/ui/reviewPieController.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/get_reviews.py" afterPath="$PROJECT_DIR$/scripts/get_reviews.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/get_wpid.py" afterPath="$PROJECT_DIR$/scripts/get_wpid.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/review_data.txt" afterPath="$PROJECT_DIR$/review_data.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/review_miner.py" afterPath="$PROJECT_DIR$/review_miner.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/review_miner_reloaded.py" afterPath="$PROJECT_DIR$/review_miner_reloaded.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/serve.py" afterPath="$PROJECT_DIR$/serve.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/feature_phrases/tablets_laptops" afterPath="$PROJECT_DIR$/feature_phrases/tablets_laptops" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="hackday.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,11 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="get_reviews.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="get_reviews.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scripts/get_reviews.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
-              <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.63380283" vertical-offset="0" max-vertical-offset="781">
+              <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -62,8 +58,8 @@
       <file leaf-file-name="review_miner.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/review_miner.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1045" max-vertical-offset="1560">
-              <caret line="81" column="28" selection-start-line="81" selection-start-column="28" selection-end-line="81" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1075" max-vertical-offset="1590">
+              <caret line="83" column="28" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -71,10 +67,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="serve.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serve.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/serve.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2038835" vertical-offset="0" max-vertical-offset="645">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="645">
               <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
@@ -256,6 +252,22 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="139" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="141" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="144" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="939" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="139" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="141" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="144" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="939" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -687,13 +699,13 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32880098" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32880098" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24910265" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24910265" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32880098" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32880098" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -727,7 +739,6 @@
     <MESSAGE value="skip empty lines" />
     <MESSAGE value="append review title at the end of the review" />
     <MESSAGE value="more phrases" />
-    <MESSAGE value="tablet/laptop features" />
     <MESSAGE value="added column chart" />
     <MESSAGE value="added mock data" />
     <MESSAGE value="flask based web service - initial commit" />
@@ -735,11 +746,12 @@
     <MESSAGE value="bed reviews" />
     <MESSAGE value="get wpid given product id" />
     <MESSAGE value="updated to read review data" />
-    <MESSAGE value="refactored" />
     <MESSAGE value="fixed bug with loading dashboard" />
     <MESSAGE value="review summary file" />
     <MESSAGE value="minor change" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor change" />
+    <MESSAGE value="refactored" />
+    <MESSAGE value="tablet/laptop features" />
+    <option name="LAST_COMMIT_MESSAGE" value="tablet/laptop features" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -940,18 +952,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/get_reviews.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
-          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/review_miner.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1045" max-vertical-offset="1560">
-          <caret line="81" column="28" selection-start-line="81" selection-start-column="28" selection-end-line="81" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1075" max-vertical-offset="1590">
+          <caret line="83" column="28" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -960,11 +964,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/serve.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2038835" vertical-offset="0" max-vertical-offset="645">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="645">
           <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/get_reviews.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63380283" vertical-offset="0" max-vertical-offset="781">
+          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>

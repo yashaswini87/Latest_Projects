@@ -6,6 +6,7 @@ import urllib2
 import pandas as pd
 import json
 from nltk.corpus import stopwords
+from scripts import get_reviews
 
 nltk.download('http://nltk.org/data.html')
 pos = 0
@@ -26,7 +27,7 @@ def get_features(wpid):
     spell_json=json.load(response)
     features= spell_json['docs'][0]['product_attributes'].keys()
 # features=["size","wetness indicator","absorb","quality","deliver","ship","offer","softness","weight","price"]
-    feature_list=["shipping", "price"]
+    feature_list=["ship", "price","size","quality","deliver"]
     for feature in features:
         feature_list.extend(feature.split('_'))
     return list(set(feature_list))
@@ -76,15 +77,17 @@ def feature_senti(reviewfile,feature_list,outputfile=None):
     df.to_csv(outputfile)
     return feature_sent_dict
 
-def get_feature_senti(productid,reviewfile,outputfile=None):
+def get_feature_senti(productid):
+    reviewfile=get_reviews.get_reviews(productid)
     wpid=get_wmid(productid)
     wpid=str(wpid.pop())
     feature_list=get_features(wpid)
     feature_list=modify_features(feature_list)
+    outputfile='./reviews/sentiment_%s.txt' %productid
     return feature_senti(reviewfile,feature_list,outputfile=outputfile)
 
 if __name__=='__main__':
-    productid='35121100'
+    productid='4408441'
     reviewfile='./reviews/reviews_35121100.txt'
     outreviewfile='./reviews/reviews_35121100_senti.txt'
-    print get_feature_senti(productid,reviewfile,outputfile=outreviewfile)
+    print get_feature_senti(productid)

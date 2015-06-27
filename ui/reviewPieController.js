@@ -53,9 +53,9 @@ countPieGui.controller('mainController',function($scope, $http){
 	$http.defaults.headers.common["WM_CONSUMER.ID"]= "100";
 	$http.defaults.headers.common["WM_SVC.NAME"]= "item-validation-app";
    
-   $http.get('http://172.28.90.252:8888/').success(
-           function(response) {                                    
-	
+   $http.get('http://172.28.90.252:8888/?productId=12345678').success(
+           function(response) {
+
         	   console.log('Success: ' + JSON.stringify(response));  
         	   
         	   

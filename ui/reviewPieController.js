@@ -44,16 +44,17 @@ countPieGui.controller('mainController',function($scope, $http){
 	 
 	 
  };
+
+	
+	$scope.productSearch = function(){
+		
+	alert("hi "+$scope.productIdStr);
+		
+	};	
  
 
-	$http.defaults.headers.common.Accept = "application/json";
-	$http.defaults.headers.common["WM_SVC.VERSION"]="1.0";
-	$http.defaults.headers.common["WM_SVC.ENV"]="STG";
-	$http.defaults.headers.common["WM_QOS.CORRELATION_ID"]= "1234";
-	$http.defaults.headers.common["WM_CONSUMER.ID"]= "100";
-	$http.defaults.headers.common["WM_SVC.NAME"]= "item-validation-app";
    
-   $http.get('http://172.28.90.252:8888/').success(
+   $http.get('http://172.28.90.252:8888?productId=12345678').success(
            function(response) {                                    
 	
         	   console.log('Success: ' + JSON.stringify(response));  

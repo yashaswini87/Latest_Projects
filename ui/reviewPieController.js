@@ -49,36 +49,41 @@ countPieGui.controller('mainController',function($scope, $http){
 	$scope.productSearch = function(){
 		
 	alert("hi "+$scope.productIdStr);
-		
+	remoteCall($scope.productIdStr);	
 	};	
  
+	var remoteCall = function(productId){
 
-   
-   $http.get('http://172.28.90.252:8888?productId=12345678').success(
-           function(response) {                                    
-	
-        	   console.log('Success: ' + JSON.stringify(response));  
-        	   
-        	   
-        	   var data = response.data;
-        	   
-        	   console.log(data);
-        	   
-        	   renderPie(data);
-                
+   $http.get('http://172.28.90.252:8888/?productId='+productId).success(
+           function(response) {
+
+                   console.log('Success: ' + JSON.stringify(response));
+
+
+                   var data = response.data;
+
+                   console.log(data);
+
+                   renderPie(data);
+
            }).error(function(data) {
-          
-           	
-           	console.log('Error: received from server ' + JSON.stringify(data));
-        	alert('Error: received from server, rendering with mock data');
-           	
+
+
+                console.log('Error: received from server ' + JSON.stringify(data));
+                alert('Error: received from server, rendering with mock data');
+
             var data = [
                         ['Mock-Success', 98.0],
                         ['Mock-Failures', 2.0]
                     ];
-            
+
               renderPie(data);
-	});
+        });
+
+	};
+
+
+   
 
 }); 
 

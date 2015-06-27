@@ -1,6 +1,4 @@
-import nltk
 from textblob import TextBlob
-from sklearn.feature_extraction.text import CountVectorizer
 from scripts.get_wpid import ProductGenome 
 import urllib2
 import pandas as pd
@@ -8,7 +6,16 @@ import json
 from nltk.corpus import stopwords
 # from scripts import get_reviews
 
-nltk.download('http://nltk.org/data.html')
+selected_features = {}
+feature_name_mapping = {"rate" : "refresh rate", "ship" : "shipping", "deliver": "shipping","remote":"remote control","control":"remote control"}
+
+selected_features['35121100'] = ['height', 'weight', 'length', 'color', 'fabric', 'warrant','instructions', 'brand', 'assembled', 'price','ship','deliver']
+selected_features['34390987'] = ['height', 'weight', 'brand', 'assembled', 'price', 'ship','warrant','price','ship','deliver']
+selected_features['25059351']=['price','quality','screen','brand','rate','weight','resolution','warranty','ship','deliver','remote control']
+selected_features['4408441']=['quality','finish','price','ship','wood','deliver','store','size','material','color','warrant','ship','deliver']
+selected_features['29010048']=['screen', 'display','battery','camera','video','service','reception','warrant','price','ship','deliver']
+
+
 pos = 0
 neg = 0
 nouns_and_noun_phrases = []
@@ -29,7 +36,7 @@ def get_features(wpid):
     spell_json=json.load(response)
     features= spell_json['docs'][0]['product_attributes'].keys()
 # features=["size","wetness indicator","absorb","quality","deliver","ship","offer","softness","weight","price"]
-    feature_list=["ship", "price","size","quality","deliver","store","warrant","assemble"]
+    feature_list=["ship", "price","size","quality","deliver","store","warrant","assembl","remote control","ship to store","store pickup","pickup in store","pick up in store"]
     for feature in features:
         feature_list.extend(feature.split('_'))
     return list(set(feature_list))
@@ -58,28 +65,19 @@ def feature_senti(reviewfile,feature_list,outputfile=None):
             review = line.strip()
             review_blob = TextBlob(review)
             for sentence in review_blob.sentences:
-                sentence_features = {}
-                sentence_features["sentence"] = sentence
-                sentence_features["polarity"] = sentence.sentiment.polarity
-                sentence_features["subjectivity"] = sentence.sentiment.subjectivity
-                sentence_features["noun_phrases"] = sentence.noun_phrases
-                sentence_features["nouns"] = []
-                for token, tag in sentence.tags:
-                    if 'NN' in tag:
-                        sentence_features["nouns"].append(token)
-                for feature in feature_sent_dict.keys():
-                    if feature in sentence :
-                        pol = sentence.sentiment.polarity 
-                        if pol > 0:
-                            feature_sent_dict[feature]['pos']+=1
-                        
-                        # print sentence
-                        if pol < 0:
-                            feature_sent_dict[feature]['neg']+=1
-                        print sentence
-                nouns_and_noun_phrases.append(' '.join(sentence_features["noun_phrases"] + sentence_features["nouns"]))
-    cv = CountVectorizer(ngram_range=(1,2), min_df=0.01)
-    cv.fit_transform(nouns_and_noun_phrases)
+                try:
+                    for feature in feature_sent_dict.keys():
+                        if feature in sentence :
+                            pol = sentence.sentiment.polarity 
+                            if pol > 0:
+                                feature_sent_dict[feature]['pos']+=1
+                                
+                            # print sentence
+                            if pol < 0:
+                                feature_sent_dict[feature]['neg']+=1
+                            print sentence
+                except ValueError:
+                        continue
     df=pd.DataFrame.from_dict(feature_sent_dict, orient='index').reset_index()
     df.cols=['feature','neg','pos']
     df.sort(['pos','neg'],ascending=[False,False],inplace=True)
@@ -99,13 +97,7 @@ def get_feature_senti(productid, get_reviews=False):
     return feature_senti(review_file,feature_list,outputfile=outputfile)
 
 if __name__=='__main__':
-    product_id = '25059351'
-    selected_features = {}
-    feature_name_mapping = {"rate" : "refresh rate", "ship" : "shipping", "deliver": "shipping","remote":"remote control","control":"remote control"}
-    selected_features['35121100'] = ['height', 'weight', 'length', 'color', 'fabric', 'instructions', 'brand', 'assembled', 'price','ship','deliver']
-    selected_features['34390987'] = ['height', 'weight', 'brand', 'assembled', 'price', 'ship']
-    selected_features['25059351']=['price','quality','screen','brand','remote','control','rate','weight','resolution','warranty','ship','deliver']
-    selected_features['4408441']=['quality','finish','price','ship','wood','deliver','store','size','material','color']
+    product_id = '29010048'
     feature_info = get_feature_senti(product_id)
     review_summary = {"product_id": product_id}
     data = []

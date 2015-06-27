@@ -1,0 +1,2 @@
+{"colorByPoint": true, "data": [{"y": 63, "name": "Screen"}, {"y": 21, "name": "Battery"}, {"y": 23, "name": "Camera"}, {"y": 39, "name": "Shipping"}, {"y": 242, "name": "Price"}], "product_id": "12345678"}
+{"colorByPoint": true, "data": [{"y": 150, "name": "Screen"}, {"y": 77, "name": "Battery"}, {"y": 94, "name": "Camera"}, {"y": 16, "name": "Video"}, {"y": 28, "name": "Reception"}, {"y": 9, "name": "Shipping"}, {"y": 127, "name": "Price"}], "product_id": "29010048"}

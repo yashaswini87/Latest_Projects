@@ -6,7 +6,7 @@ import urllib2
 import pandas as pd
 import json
 from nltk.corpus import stopwords
-from scripts import get_reviews
+# from scripts import get_reviews
 
 nltk.download('http://nltk.org/data.html')
 pos = 0
@@ -29,7 +29,7 @@ def get_features(wpid):
     spell_json=json.load(response)
     features= spell_json['docs'][0]['product_attributes'].keys()
 # features=["size","wetness indicator","absorb","quality","deliver","ship","offer","softness","weight","price"]
-    feature_list=["ship", "price","size","quality","deliver","store"]
+    feature_list=["ship", "price","size","quality","deliver","store","warrant","assemble"]
     for feature in features:
         feature_list.extend(feature.split('_'))
     return list(set(feature_list))
@@ -86,9 +86,11 @@ def feature_senti(reviewfile,feature_list,outputfile=None):
     df.to_csv(outputfile)
     return feature_sent_dict
 
-def get_feature_senti(productid,cat=''):
-    review_file = './reviews/reviews_{}_{}.txt'.format(productid,cat)
-    get_reviews.get_reviews(productid,review_file)
+def get_feature_senti(productid, get_reviews=False):
+    review_file = './reviews/reviews_{}.txt'.format(productid)
+    if get_reviews:
+        review_file = './reviews/reviews_{}.txt'.format(productid)
+        get_reviews.get_reviews(productid,review_file)
     wpid=get_wmid(productid)
     wpid=str(wpid.pop())
     feature_list=get_features(wpid)
@@ -97,5 +99,36 @@ def get_feature_senti(productid,cat=''):
     return feature_senti(review_file,feature_list,outputfile=outputfile)
 
 if __name__=='__main__':
-    get_feature_senti('25059351','TV')
+    product_id = '25059351'
+    selected_features = {}
+    feature_name_mapping = {"rate" : "refresh rate", "ship" : "shipping", "deliver": "shipping","remote":"remote control","control":"remote control"}
+    selected_features['35121100'] = ['height', 'weight', 'length', 'color', 'fabric', 'instructions', 'brand', 'assembled', 'price','ship','deliver']
+    selected_features['34390987'] = ['height', 'weight', 'brand', 'assembled', 'price', 'ship']
+    selected_features['25059351']=['price','quality','screen','brand','remote','control','rate','weight','resolution','warranty','ship','deliver']
+    selected_features['4408441']=['quality','finish','price','ship','wood','deliver','store','size','material','color']
+    feature_info = get_feature_senti(product_id)
+    review_summary = {"product_id": product_id}
+    data = []
+    series = [{"name": "Positive", "data": []}, {"name": "Negative", "data": []}]
+    categories = []
+    for feat_info in feature_info.iterkeys():
+        name = feat_info
+        d = feature_info[feat_info]
+        pos = d["pos"]
+        neg = d["neg"]
+        if feat_info in selected_features[product_id]:
+            name=name if name not in feature_name_mapping else feature_name_mapping[name]
+            data_point = {}
+            data_point["name"] = name 
+            data_point['y'] = pos + neg
+            data.append(data_point)
+            categories.append(name.title())
+            series[0]["data"].append(pos)
+            series[1]["data"].append(neg)
+    review_summary["data"] = data
+    review_summary["col_data"] = series
+    review_summary["col_cats"] = categories
+
+with open("new_review_data.txt", 'a') as review_data_file:
+    review_data_file.write(json.dumps(review_summary) + '\n')
 #     get_feature_senti('28240450','./reviews/reviews_diapers_28240450.txt')

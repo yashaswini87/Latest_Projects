@@ -2,6 +2,68 @@ var countPieGui = angular.module('hackdayGui', ['ui.bootstrap']);
 
 
 countPieGui.controller('mainController',function($scope, $http){
+
+
+ var renderBarChart = function(categories, seriesData){
+
+	var charConfig = {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'What people say'
+        },
+        subtitle: {
+            text: 'Source: <a href="http://www.walmart.com/ip/4408441">Product Link</a>'
+        },
+        xAxis: {
+            categories: null,
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Feature Sentiment',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' millions'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series: null 
+    }; 
+
+   chartConfig.xAxis.categories = categories;
+   chartConfig.series = series;
+   $('#container2').highcharts(chartConfig);	
+
+ };
 	
  var renderPie = function(data) {
 	 
@@ -65,6 +127,7 @@ countPieGui.controller('mainController',function($scope, $http){
                    console.log(data);
 
                    renderPie(data);
+		   redenrBarChart(response.col_cats,response.col_data);	
 
            }).error(function(data) {
 

@@ -1,6 +1,6 @@
 import requests
 
-product_id = "29010048"
+product_id = "27608624"
 
 url = "http://api.meta-data.glb.prod.walmart.com/reviews/" + product_id + "?page="
 

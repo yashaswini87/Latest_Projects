@@ -42,7 +42,8 @@ def modify_features(feature_list):
             if f not in stop:
                 if 'id' not in f:
                     if 'path' not in f:
-                        new_feature_list.append(f)
+                        if len(f)>1:
+                            new_feature_list.append(f)
     return new_feature_list
 
 def feature_senti(reviewfile,feature_list,outputfile=None):
@@ -85,15 +86,16 @@ def feature_senti(reviewfile,feature_list,outputfile=None):
     df.to_csv(outputfile)
     return feature_sent_dict
 
-def get_feature_senti(productid,reviewfile):
-#     reviewfile=get_reviews.get_reviews(productid)
+def get_feature_senti(productid,cat=''):
+    review_file = './reviews/reviews_{}_{}.txt'.format(productid,cat)
+    get_reviews.get_reviews(productid,review_file)
     wpid=get_wmid(productid)
     wpid=str(wpid.pop())
     feature_list=get_features(wpid)
     feature_list=modify_features(feature_list)
     outputfile='./reviews/sentiment_%s.txt' %productid
-    return feature_senti(reviewfile,feature_list,outputfile=outputfile)
+    return feature_senti(review_file,feature_list,outputfile=outputfile)
 
 if __name__=='__main__':
-    get_feature_senti('4408441','./reviews/reviews_bed_4408441.txt')
+    get_feature_senti('25059351','TV')
 #     get_feature_senti('28240450','./reviews/reviews_diapers_28240450.txt')

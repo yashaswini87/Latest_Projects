@@ -1,4 +1,3 @@
-import nltk
 from textblob import TextBlob
 from sklearn.feature_extraction.text import CountVectorizer
 from scripts.get_wpid import ProductGenome 
@@ -8,7 +7,6 @@ import json
 from nltk.corpus import stopwords
 # from scripts import get_reviews
 
-nltk.download('http://nltk.org/data.html')
 pos = 0
 neg = 0
 nouns_and_noun_phrases = []
@@ -17,6 +15,12 @@ ATTRS_TO_IGNORE=['actual_color','features','item_master_created_date','product_u
                  'product_category','walmart_department_number','category','wmt_category','model','upc','wupc','walmart_item_number',
                  'item_id','brand_code','wmt_category','product_type']
 servers = {"PROD": "kaos-cass00.sv.walmartlabs.com"}
+
+selected_features = {}
+selected_features['35121100'] = ['height', 'weight', 'length', 'color', 'fabric', 'instructions', 'brand', 'assembled', 'price','ship','deliver']
+selected_features['34390987'] = ['height', 'weight', 'brand', 'assembled', 'price', 'ship']
+selected_features['25059351']=['price','quality','screen','brand','remote','control','rate','weight','resolution','warranty','ship','deliver']
+selected_features['4408441']=['quality','finish','price','ship','wood','deliver','store','size','material','color']
 
 def get_wmid(productid):
     pg = ProductGenome(server_url=servers.get("PROD"))
@@ -99,13 +103,8 @@ def get_feature_senti(productid, get_reviews=False):
     return feature_senti(review_file,feature_list,outputfile=outputfile)
 
 if __name__=='__main__':
-    product_id = '25059351'
-    selected_features = {}
+    product_id = '25059351'  
     feature_name_mapping = {"rate" : "refresh rate", "ship" : "shipping", "deliver": "shipping","remote":"remote control","control":"remote control"}
-    selected_features['35121100'] = ['height', 'weight', 'length', 'color', 'fabric', 'instructions', 'brand', 'assembled', 'price','ship','deliver']
-    selected_features['34390987'] = ['height', 'weight', 'brand', 'assembled', 'price', 'ship']
-    selected_features['25059351']=['price','quality','screen','brand','remote','control','rate','weight','resolution','warranty','ship','deliver']
-    selected_features['4408441']=['quality','finish','price','ship','wood','deliver','store','size','material','color']
     feature_info = get_feature_senti(product_id)
     review_summary = {"product_id": product_id}
     data = []
@@ -129,6 +128,6 @@ if __name__=='__main__':
     review_summary["col_data"] = series
     review_summary["col_cats"] = categories
 
-with open("new_review_data.txt", 'a') as review_data_file:
-    review_data_file.write(json.dumps(review_summary) + '\n')
+    with open("new_review_data.txt", 'a') as review_data_file:
+        review_data_file.write(json.dumps(review_summary) + '\n')
 #     get_feature_senti('28240450','./reviews/reviews_diapers_28240450.txt')

@@ -86,9 +86,11 @@ def feature_senti(reviewfile,feature_list,outputfile=None):
     df.to_csv(outputfile)
     return feature_sent_dict
 
-def get_feature_senti(productid,cat=''):
-    review_file = './reviews/reviews_{}_{}.txt'.format(productid,cat)
-    get_reviews.get_reviews(productid,review_file)
+def get_feature_senti(productid,cat='', get_reviews=False):
+    review_file = './reviews/reviews_{}.txt'.format(productid)
+    if get_reviews:
+        review_file = './reviews/reviews_{}_{}.txt'.format(productid,cat)
+        get_reviews.get_reviews(productid,review_file)
     wpid=get_wmid(productid)
     wpid=str(wpid.pop())
     feature_list=get_features(wpid)
@@ -97,5 +99,26 @@ def get_feature_senti(productid,cat=''):
     return feature_senti(review_file,feature_list,outputfile=outputfile)
 
 if __name__=='__main__':
-    get_feature_senti('25059351','TV')
+    product_id = '34390987'
+    selected_features = {}
+    feature_name_mapping = {"rate" : "refresh rate", "ship" : "shipping", "deliver": "shipping"}
+    selected_features['35121100'] = ['height', 'weight', 'length', 'color', 'fabric', 'instructions', 'brand', 'assembled', 'price', 'ship']
+    selected_features['34390987'] = ['height', 'weight', 'brand', 'assembled', 'price', 'ship']
+    feature_info = get_feature_senti(product_id,'TV')
+    review_summary = {"product_id": product_id, "colorByPoint": True}
+    data = []
+    for feat_info in feature_info.iterkeys():
+        name = feat_info
+        d = feature_info[feat_info]
+        pos = d["pos"]
+        neg = d["neg"]
+        if feat_info in selected_features[product_id]:
+            data_point = {}
+            data_point["name"] = name if name not in feature_name_mapping else feature_name_mapping[name]
+            data_point['y'] = pos + neg
+            data.append(data_point)
+    review_summary["data"] = data
+
+with open("new_review_data.txt", 'w') as review_data_file:
+    review_data_file.write(json.dumps(review_summary) + '\n')
 #     get_feature_senti('28240450','./reviews/reviews_diapers_28240450.txt')

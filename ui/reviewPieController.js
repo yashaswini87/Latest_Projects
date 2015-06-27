@@ -6,7 +6,7 @@ countPieGui.controller('mainController',function($scope, $http){
 
  var renderBarChart = function(categories, seriesData){
 
-	var charConfig = {
+	var chartConfig = {
         chart: {
             type: 'bar'
         },
@@ -60,7 +60,7 @@ countPieGui.controller('mainController',function($scope, $http){
     }; 
 
    chartConfig.xAxis.categories = categories;
-   chartConfig.series = series;
+   chartConfig.series = seriesData;
    $('#container2').highcharts(chartConfig);	
 
  };
@@ -92,6 +92,9 @@ countPieGui.controller('mainController',function($scope, $http){
 		                }
 		            }
 		        },
+		        credits: {
+                    enabled: false
+                 },
 		        series: [{
 		            type: 'pie',
 		            name: 'Feature Importance by Reviews',
@@ -127,7 +130,7 @@ countPieGui.controller('mainController',function($scope, $http){
                    console.log(data);
 
                    renderPie(data);
-		   redenrBarChart(response.col_cats,response.col_data);	
+		   renderBarChart(response.col_cats,response.col_data);
 
            }).error(function(data) {
 

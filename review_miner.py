@@ -13,7 +13,9 @@ pos = 0
 neg = 0
 nouns_and_noun_phrases = []
 # nltk.download()
-
+ATTRS_TO_IGNORE=['actual_color','features','item_master_created_date','product_url_text','product_segment','type','alternate_shelves','item_type','gtin',
+                 'product_category','walmart_department_number','category','wmt_category','model','upc','wupc','walmart_item_number',
+                 'item_id','brand_code','wmt_category','product_type']
 servers = {"PROD": "kaos-cass00.sv.walmartlabs.com"}
 
 def get_wmid(productid):
@@ -27,15 +29,21 @@ def get_features(wpid):
     spell_json=json.load(response)
     features= spell_json['docs'][0]['product_attributes'].keys()
 # features=["size","wetness indicator","absorb","quality","deliver","ship","offer","softness","weight","price"]
-    feature_list=["ship", "price","size","quality","deliver"]
+    feature_list=["ship", "price","size","quality","deliver","store"]
     for feature in features:
         feature_list.extend(feature.split('_'))
     return list(set(feature_list))
 
 def modify_features(feature_list):
+    new_feature_list=[]
     stop = stopwords.words('english')
-    feature_list=[f for f in feature_list if f not in stop]
-    return feature_list
+    for f in feature_list:
+        if f not in ATTRS_TO_IGNORE:
+            if f not in stop:
+                if 'id' not in f:
+                    if 'path' not in f:
+                        new_feature_list.append(f)
+    return new_feature_list
 
 def feature_senti(reviewfile,feature_list,outputfile=None):
     feature_sent_dict={}
@@ -77,8 +85,8 @@ def feature_senti(reviewfile,feature_list,outputfile=None):
     df.to_csv(outputfile)
     return feature_sent_dict
 
-def get_feature_senti(productid):
-    reviewfile=get_reviews.get_reviews(productid)
+def get_feature_senti(productid,reviewfile):
+#     reviewfile=get_reviews.get_reviews(productid)
     wpid=get_wmid(productid)
     wpid=str(wpid.pop())
     feature_list=get_features(wpid)
@@ -87,7 +95,5 @@ def get_feature_senti(productid):
     return feature_senti(reviewfile,feature_list,outputfile=outputfile)
 
 if __name__=='__main__':
-    productid='4408441'
-    reviewfile='./reviews/reviews_35121100.txt'
-    outreviewfile='./reviews/reviews_35121100_senti.txt'
-    print get_feature_senti(productid)
+    get_feature_senti('4408441','./reviews/reviews_bed_4408441.txt')
+#     get_feature_senti('28240450','./reviews/reviews_diapers_28240450.txt')

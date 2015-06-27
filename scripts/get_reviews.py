@@ -3,14 +3,11 @@ import requests
 product_id = "35121100"
 
 
-def get_reviews(product_id):
+def get_reviews(product_id,review_file):
     url = "http://api.meta-data.glb.prod.walmart.com/reviews/" + product_id + "?page="
     
     num_pages = int(requests.get(url + "1").json().get("payload").get("pagination").get("pages")[-1].get("num"))
     review_corpus = []
-    
-    review_file = './reviews/reviews_{}.txt'.format(product_id)
-    
     
     with open(review_file, 'w') as review_file:
         for page in range(1, num_pages):

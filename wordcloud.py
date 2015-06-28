@@ -6,7 +6,7 @@ from pytagcloud import create_html_data
 from pytagcloud import LAYOUT_HORIZONTAL
 
 
-def generate_tag_cloud(tags):
+def generate_tag_cloud(tags,outputfile):
     data = create_html_data(tags, size=(900, 600), fontname='Crimson Text', layout=3)
 
     template_file = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/template.html'), 'r')
@@ -33,5 +33,5 @@ def generate_tag_cloud(tags):
 
     html_text = html_template.substitute(context)
 
-    with codecs.open('cloud.html', 'w', encoding='utf-8') as html_file:
+    with codecs.open(outputfile, 'w', encoding='utf-8') as html_file:
         html_file.write(html_text)

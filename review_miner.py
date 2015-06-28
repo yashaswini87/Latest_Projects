@@ -109,6 +109,7 @@ if __name__=='__main__':
     feature_info,feature_wordcloud_dict,product_title = get_feature_senti(product_id)
     review_summary = {"product_id": product_id}
     review_summary={"product_title":product_title}
+    review_summary={"product_url":'http://ll-us-i5.wal.co/dfw/dce07b8c-f814/k2-_0b537d4c-f5d8-4f7b-827c-002d7a9bba47.v2.jpg-0437fd3f35abcd90e643d1a42a230f7f5572f41f-webp-450x450.webp'}
     data = []
     series = [{"name": "Positive", "data": []}, {"name": "Negative", "data": []}]
     categories = []
@@ -135,11 +136,11 @@ if __name__=='__main__':
         review_data_file.write(json.dumps(review_summary) + '\n')
 
     print '########### Word cloud ###################################'
-    tags=sentence_clustering.main(feature_wordcloud_dict,5)
+    tags=sentence_clustering.main(feature_wordcloud_dict,4)
     tags_new=[]
     for sentence in tags:
         r, g, b = randint(0, 255), randint(0, 255), randint(0, 255)
-        size = randint(50,200)
+        size = randint(30,80)
         tags_new.append({'color': (r, g, b), 'tag': sentence, 'size': size})
     cloud_output='./ui/cloud_%s.html'%product_id
     wordcloud.generate_tag_cloud(tags_new,cloud_output)

@@ -57,15 +57,18 @@ def main(product_id):
     for page in range(1, num_pages):
         print "Scanning page {}".format(page)
         page_url = url + str(page)
-        reviews = requests.get(page_url).json().get("payload").get("customerReviews")
-        for review in reviews:
-            rating = review.get("rating")
-            user_data = review.get("userAttributes")
-            update_user_data_rating(age, user_data.get("Age"), rating)
-            update_user_data_rating(ownership, user_data.get("Ownership"), rating)
-            update_user_data_rating(gender, user_data.get("Gender"), rating)
-            update_user_data_rating(usage, user_data.get("Usage"), rating)
-    
+        try:
+            reviews = requests.get(page_url).json().get("payload").get("customerReviews")
+            for review in reviews:
+                rating = review.get("rating")
+                user_data = review.get("userAttributes")
+                update_user_data_rating(age, user_data.get("Age"), rating)
+                update_user_data_rating(ownership, user_data.get("Ownership"), rating)
+                update_user_data_rating(gender, user_data.get("Gender"), rating)
+                update_user_data_rating(usage, user_data.get("Usage"), rating)
+        except:
+            continue
+        
     d = {}
     d['age_categories'], d['age_data'] = get_chart_data(age)
     d['ownership_categories'], d['ownership_data'] = get_chart_data(ownership)

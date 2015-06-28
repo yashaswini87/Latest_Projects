@@ -7,13 +7,15 @@ from nltk.corpus import stopwords
 import sentence_clustering 
 from random import randint
 import wordcloud
-# from scripts import get_reviews
+from scripts import get_reviews
+import review_demographics
 
 selected_features = {}
 feature_name_mapping = {"rate" : "refresh rate", "ship" : "shipping", "deliver": "shipping","remote":"remote control","control":"remote control"}
 
 selected_features['35121100'] = ['height', 'weight', 'length', 'color', 'fabric', 'warrant','instructions', 'brand', 'assembled', 'price','ship','deliver']
 selected_features['34390987'] = ['height', 'weight', 'brand', 'assembled', 'price', 'ship','warrant','price','ship','deliver']
+#selected_features['42417756'] = ['height', 'weight', 'brand', 'assembled', 'price', 'ship','warrant','price','ship','deliver']
 selected_features['25059351']=['price','quality','screen','brand','rate','weight','resolution','warranty','ship','deliver','remote control']
 selected_features['4408441']=['quality','finish','price','ship','wood','deliver','store','size','material','color','warrant','ship','deliver']
 selected_features['29010048']=['screen', 'display','battery','camera','video','service','reception','warrant','price','ship','deliver']
@@ -91,11 +93,10 @@ def feature_senti(reviewfile,feature_list,outputfile=None):
     df.to_csv(outputfile)
     return feature_sent_dict,feature_wordcloud_dict
 
-def get_feature_senti(productid, get_reviews=False):
+def get_feature_senti(productid, get_review_flag=False):
     review_file = './reviews/reviews_{}.txt'.format(productid)
-    if get_reviews:
-        review_file = './reviews/reviews_{}.txt'.format(productid)
-        get_reviews.get_reviews(productid,review_file)
+    if get_review_flag:
+        get_reviews.get_reviews(product_id)
     wpid=get_wmid(productid)
     wpid=str(wpid.pop())
     feature_list,product_title=get_features(wpid)
@@ -107,8 +108,9 @@ def get_feature_senti(productid, get_reviews=False):
 if __name__=='__main__':
     product_id = '4408441'
     feature_info,feature_wordcloud_dict,product_title = get_feature_senti(product_id)
-    review_summary = {"product_id": product_id}
-    review_summary={"product_title":product_title}
+    review_summary = {}
+    review_summary ["product_id"] = product_id
+    review_summary ["product_title"] = product_title
     data = []
     series = [{"name": "Positive", "data": []}, {"name": "Negative", "data": []}]
     categories = []
@@ -130,7 +132,10 @@ if __name__=='__main__':
 #     review_summary["data"] = data
     review_summary["col_data"] = series
     review_summary["col_cats"] = categories
-
+    demographics = review_demographics.main(product_id)
+    for key in ['age_categories', 'age_data', 'ownership_categories', 'ownership_data', 'gender_categories', 'gender_data', 'usage_categories', 'usage_data']:
+        review_summary[key] = demographics[key] 
+    
     with open("review_data.txt", 'a') as review_data_file:
         review_data_file.write(json.dumps(review_summary) + '\n')
 

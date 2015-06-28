@@ -15,7 +15,6 @@ feature_name_mapping = {"rate" : "refresh rate", "ship" : "shipping", "deliver":
 
 selected_features['35121100'] = ['height', 'weight', 'length', 'color', 'fabric', 'warrant','instructions', 'brand', 'assembled', 'price','ship','deliver']
 selected_features['34390987'] = ['height', 'weight', 'brand', 'assembled', 'price', 'ship','warrant','price','ship','deliver']
-#selected_features['42417756'] = ['height', 'weight', 'brand', 'assembled', 'price', 'ship','warrant','price','ship','deliver']
 selected_features['25059351']=['price','quality','screen','brand','rate','weight','resolution','warranty','ship','deliver','remote control']
 selected_features['4408441']=['quality','finish','price','ship','wood','deliver','store','size','material','color','warrant','ship','deliver']
 selected_features['29010048']=['screen', 'display','battery','camera','video','service','reception','warrant','price','ship','deliver']

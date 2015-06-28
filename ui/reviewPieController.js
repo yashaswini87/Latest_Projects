@@ -10,7 +10,7 @@ countPieGui.controller('mainController',function($scope, $http){
         chart: {
             type: 'bar'
         },
-        colors: ['#3498db', '#e74c3c'],
+        colors: ['#27ae60', "#e74c3c"],
         title: {
             text: 'What people say'
         },
@@ -62,6 +62,110 @@ countPieGui.controller('mainController',function($scope, $http){
    $('#container2').highcharts(chartConfig);	
 
  };
+
+ var renderAgeChart = function(categories, seriesData){
+
+	var chartConfig = {
+        chart: {
+            type: 'bar'
+        },
+        colors: ["#f2ca26", "#2ecc71", "#8e44ad", "#95a5a6", "#3498db"],
+        title: {
+            text: 'Ratings by Age'
+        },
+        xAxis: {
+            categories: null,
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series: null
+    };
+
+   chartConfig.xAxis.categories = categories;
+   chartConfig.series = seriesData;
+   $('#container3').highcharts(chartConfig);
+
+ };
+
+ var renderUsageChart = function(categories, seriesData){
+
+	var chartConfig = {
+        chart: {
+            type: 'bar'
+        },
+        colors: ["#f2ca26", "#2ecc71", "#8e44ad", "#95a5a6", "#3498db"],
+        title: {
+            text: 'Ratings by Usage'
+        },
+        xAxis: {
+            categories: null,
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series: null
+    };
+
+   chartConfig.xAxis.categories = categories;
+   chartConfig.series = seriesData;
+   $('#container4').highcharts(chartConfig);
+
+ };
 	
  var renderPie = function(data) {
 	 
@@ -110,13 +214,20 @@ countPieGui.controller('mainController',function($scope, $http){
 
 	
 	$scope.productSearch = function(){
+
+	var iframeUrl = document.getElementById("cloudId").src;
+
+
+//	document.getElementById("cloudId").src = "http://172.28.90.252:7777/cloud_"+$scope.productIdStr+".html";
+	document.getElementById("cloudId").src = "http://192.168.0.105/:7777/cloud_"+$scope.productIdStr+".html";
+
 		
 	remoteCall($scope.productIdStr);
 	};	
  
 	var remoteCall = function(productId){
-
-   $http.get('http://172.28.90.252:8888/?productId='+productId).success(
+   $http.get('http://192.168.0.105:8888/?productId='+productId).success(
+//   $http.get('http://172.28.90.252:8888/?productId='+productId).success(
            function(response) {
 
                    console.log('Success: ' + JSON.stringify(response));
@@ -126,8 +237,9 @@ countPieGui.controller('mainController',function($scope, $http){
 
                    console.log(data);
 
-                   renderPie(data);
 		   renderBarChart(response.col_cats,response.col_data);
+		   renderAgeChart(response.age_categories,response.age_data);
+		   renderUsageChart(response.usage_categories,response.usage_data);
 
            }).error(function(data) {
 
@@ -145,8 +257,6 @@ countPieGui.controller('mainController',function($scope, $http){
 
 	};
 
-
-   
 
 }); 
 

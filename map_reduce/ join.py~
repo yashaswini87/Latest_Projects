@@ -1,0 +1,29 @@
+import MapReduce
+import sys
+mr = MapReduce.MapReduce()
+somelist=[]
+def mapper(record):
+    # key: document identifier
+    # value: document contents
+    key = record[0]
+    value = record[1]
+    #words = value.split()
+    #for w in words:
+    mr.emit_intermediate(value, key)
+
+def reducer(key, c):
+    
+    script=open(sys.argv[1]))
+    
+    for line in script:
+        record=json.loads(line)	
+     if (key==record[1] and record[0]=='order'):
+            s=[]
+            s.append(record)
+            s= list(chain(*s))
+     elif (key==record[1] and record[0]!='order'):
+            t=[] 
+            t.append(record)
+            t=list(chain(*t))
+            somelist.append(s+t)	
+   	    mr.emit(somelist)
